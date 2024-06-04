@@ -376,7 +376,7 @@ class Transformer(torch.nn.Module):
             state_dict = torch.load(saved_model_path)
             print(f"{state_dict.keys()=}")
         
-        debt = 0
+       
         while(self.step_num < self.training_iterations):
 
         # for i in range(self.training_iterations):
@@ -394,9 +394,6 @@ class Transformer(torch.nn.Module):
                 torch.save(self.state_dict(), write_model_path)
             if i % average == 0 and i >= 2:
                 print(f"step={self.step_num} {lr=} avg_loss={sum(losses)/average}")
-                if debt:
-                    debt += sum([prev < next for prev, next in zip(losses[:-1], losses[1:])])
-                    print(f"i vow to pay prajit $1 for every step where my loss increases. total money I owe prajit: ${debt}")
                 losses = []
 
             
